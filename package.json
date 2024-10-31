@@ -1,7 +1,7 @@
 {
   "name": "tugas_webmobile2",
   "version": "1.0.0",
-  "main": "api/download.js",
+  "main": "index.js",
   "scripts": {
     "test": "node index.js"
   },
@@ -12,7 +12,6 @@
   "dependencies": {
     "@xaviabot/fb-downloader": "^1.0.14",
     "express": "^4.21.1",
-    "http": "^0.0.1-security",
     "nayan-media-downloader": "^2.6.3"
   }
 }
