@@ -1,0 +1,17 @@
+{
+  "name": "tugas_webmobile2",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@xaviabot/fb-downloader": "^1.0.14",
+    "express": "^4.21.1",
+    "nayan-media-downloader": "^2.6.3"
+  }
+}

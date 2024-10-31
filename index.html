@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Downloader</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        async function downloadMedia() {
+            const url = document.getElementById("urlInput").value;
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "Downloading...";
+
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url })
+                });
+
+                const result = await response.json();
+                console.log(result);
+                resultDiv.innerHTML = `<p><strong>Download Results:</strong></p>`;
+                const mediaContainer = document.createElement("div");
+                mediaContainer.className = "flex flex-wrap justify-center";
+
+                if (result.error) {
+                    resultDiv.innerHTML += `Error: ${result.error}`;
+                } else {
+                    result.forEach(media => {
+                        const mediaDiv = document.createElement("div");
+                        mediaDiv.className = "m-2"; // margin for spacing
+
+                        if (media.type === "image") {
+                            mediaDiv.innerHTML = `<a href="${media.url}" download><img src="${media.url}" alt="Downloaded Image" class="max-w-xs h-auto rounded shadow"/></a>`;
+                        } else if (media.type === "video") {
+                            mediaDiv.innerHTML = `<video src="${media.url}" controls class="max-w-xs h-auto rounded shadow"></video>`;
+                        } else {
+                            mediaDiv.innerHTML = `<a href="${media.url}" download class="text-blue-600">Download File</a>`;
+                        }
+
+                        mediaContainer.appendChild(mediaDiv);
+                    });
+                }
+                resultDiv.appendChild(mediaContainer);
+            } catch (error) {
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Media Downloader</h1>
+        <input type="text" id="urlInput" placeholder="Enter URL" class="border border-gray-300 rounded p-2 w-full mb-4" />
+        <button onclick="downloadMedia()" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full">Download Media</button>
+        <div id="result" class="mt-4"></div>
+    </div>
+</body>
+</html>
