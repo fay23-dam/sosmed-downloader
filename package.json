@@ -12,6 +12,7 @@
   "dependencies": {
     "@xaviabot/fb-downloader": "^1.0.14",
     "express": "^4.21.1",
+    "got": "^14.4.3",
     "nayan-media-downloader": "^2.6.3"
   }
 }
